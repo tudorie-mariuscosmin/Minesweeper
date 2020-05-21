@@ -9,7 +9,7 @@ export default class Board extends React.Component {
     mineCount: this.props.mines,
   };
 
-//getters
+  //getters
 
   // get mines
   getMines(data) {
@@ -91,8 +91,8 @@ export default class Board extends React.Component {
     return data;
   }
 
-//generates random numbers for sellecting random cells
-//assigns isMine with true for selected cells
+  //generates random numbers for sellecting random cells
+  //assigns isMine with true for selected cells
   plantMines(data, height, width, mines) {
     let randomx, randomy, minesPlanted = 0;
 
@@ -108,8 +108,8 @@ export default class Board extends React.Component {
     return (data);
   }
 
-//used to calculate the number of surrounding mines
-//needs to find surrounding cells first with traverseBoard
+  //used to calculate the number of surrounding mines
+  //needs to find surrounding cells first with traverseBoard
   getNeighbours(data, height, width) {
     let updatedData = data, index = 0;
 
@@ -296,8 +296,9 @@ export default class Board extends React.Component {
     return (
       <div className="board">
         <div className="game-info">
+          <h1 className="title">Minesweeper 2.0</h1>
           <span className="info">Mines remaining: {this.state.mineCount}</span>
-          <h1 className="info">{this.state.gameStatus}</h1>
+          <h3 className="info">{this.state.gameStatus}</h3>
         </div>
         {
           this.renderBoard(this.state.boardData)
