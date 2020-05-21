@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import Board from './Components/Board';
+import './App.scss';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+//Game component: contains height, width and no of mines
+export default class Game extends React.Component {
+  state= { //initialize state
+    height: 10,
+    width: 10,
+    mines: 12
+  };
+
+  render() {
+    const { height, width, mines } = this.state;
+    return ( //pass them to the board component
+      <div className="game"> 
+        <Board height={height} width={width} mines={mines} />
+      </div>
+    );
+  }
 }
-
-export default App;
