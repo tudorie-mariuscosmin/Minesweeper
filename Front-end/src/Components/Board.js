@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Cell from './Cell';
+import axios from 'axios';
 
 export default class Board extends React.Component {
   state = {
@@ -222,6 +223,40 @@ export default class Board extends React.Component {
       this.revealBoard();
       alert("game over");
     }
+    var sendScoreToAPI = () => {
+      //get player name from browser prompt
+      var playerName = prompt("Congrats for winning the game! Please enter your name: ", "Alexa");
+      if (playerName != null) {
+        var dataToSave = {
+          playerScore: 10, //replace 10 with your actual variable (probably this.state.gameScore or this.state.time)
+          playerName: playerName,
+          currentTime: new Date()
+        };
+        // Actual API call
+        // fetch(
+        //   "https://api.example.com/minesweeper", // replace with the url to your API
+        //   {
+        //     method: 'POST',
+        //     headers: {
+        //       'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(dataToSave)
+        //   }
+        // )
+        axios.post("http://localhost:5000/api/Winners", dataToSave)
+          .then(res => res.json())
+          .then(
+            (result) => {
+              alert('You saved your score');
+            },
+            // Note: it's important to handle errors here
+            (error) => {
+              alert('Bad API call');
+              console.log(error);
+            }
+          )
+      }
+    }
 
     let updatedData = this.state.boardData;
     updatedData[x][y].isFlagged = false;
@@ -234,6 +269,7 @@ export default class Board extends React.Component {
     if (this.getHidden(updatedData).length === this.props.mines) {
       this.setState({ mineCount: 0, gameStatus: "You Win." });
       this.revealBoard();
+      sendScoreToAPI();
       alert("You Win");
     }
 
